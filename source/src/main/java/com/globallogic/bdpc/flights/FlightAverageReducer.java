@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 
 public class FlightAverageReducer extends Reducer<Text, IntWritable, Text, DoubleWritable> {
 
+    private DoubleWritable averageWritable = new DoubleWritable();
+
     public void reduce(Text flight, Iterable<IntWritable> delays, Context context) throws IOException, InterruptedException {
         int totalFlights = 0;
         int totalDelays = 0;
@@ -18,7 +20,8 @@ public class FlightAverageReducer extends Reducer<Text, IntWritable, Text, Doubl
             totalDelays = totalDelays + delay.get();
         }
         BigDecimal averageDelay = BigDecimal.valueOf(totalDelays / totalFlights);
-        context.write(flight, new DoubleWritable(averageDelay.doubleValue()));
+        averageWritable.set(averageDelay.doubleValue());
+        context.write(flight, averageWritable);
     }
 
 }

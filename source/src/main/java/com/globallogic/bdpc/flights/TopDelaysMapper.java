@@ -16,6 +16,8 @@ public class TopDelaysMapper extends Mapper<Text, DoubleWritable, Text, DoubleWr
     private final AirlinesMap AIRLINES_MAP = new AirlinesMap();
 
     private TreeMap<Double, Text> top = new TreeMap<>();
+    private Text airlineText = new Text();
+    private DoubleWritable averageWritable = new DoubleWritable();
 
     @Override
     public void map(Text airlineCode, DoubleWritable averageDepartureDelay, Context context) throws IOException, InterruptedException {
@@ -30,7 +32,10 @@ public class TopDelaysMapper extends Mapper<Text, DoubleWritable, Text, DoubleWr
         for (Map.Entry<Double, Text> entry : top.entrySet()) {
             String airlineCode = entry.getValue().toString();
             Airline airline = AIRLINES_MAP.getOrDefault(airlineCode, unrecognizedAirline(airlineCode));
-            context.write(new Text(airline.toString()), new DoubleWritable(entry.getKey()));
+
+            airlineText.set(airline.toString());
+            averageWritable.set(entry.getKey());
+            context.write(airlineText, averageWritable);
         }
     }
 
