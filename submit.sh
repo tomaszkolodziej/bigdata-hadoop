@@ -26,7 +26,7 @@ fi
 
 if [[ -z "$OUTPUT_PATH" ]];
 then
-  OUTPUT_PATH="/flights/output.csv"
+  OUTPUT_PATH="/flights/output"
 fi
 
 if [[ -z "$EXECUTOR" ]];
@@ -49,7 +49,7 @@ echo "BASE_PATH = $BASE_PATH"
 echo "APP_PATH = $APP_PATH"
 echo "-------------------------------------"
 echo "INPUT_PATH = $INPUT_PATH"
-echo "OUTPUT_PUTH = $OUTPUT_PATH"
+echo "OUTPUT_PATH = $OUTPUT_PATH"
 echo "-------------------------------------"
 
 mapReduceArguments=(
@@ -57,6 +57,7 @@ mapReduceArguments=(
   "com.globallogic.bdpc.flights.Flights"
   "$INPUT_PATH"
   "$OUTPUT_PATH"
+  "$OUTPUT_PATH_2"
 )
 
 SUBMIT_CMD="${EXECUTOR} jar ${mapReduceArguments[@]}"

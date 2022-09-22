@@ -1,5 +1,4 @@
 com\globallogic\bdpc\flights\FlightDelayMapper.class
-com\globallogic\bdpc\flights\TopDelaysMapper.class
 com\globallogic\bdpc\flights\AirlinesMap.class
 com\globallogic\bdpc\flights\FlightAverageReducer.class
 com\globallogic\bdpc\flights\Flights.class

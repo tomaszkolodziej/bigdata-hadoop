@@ -1,7 +1,10 @@
 # Hadoop Flights Application example
 
 To run:
- - Check out script parameters with `./submit.sh -h` or open the file 
-  > ./submit.sh
- - if it is not executable run `chmod +x submit.sh`
- 
+````
+    chmod +x submit.sh
+    ./submit.sh
+    hadoop fs -ls /flights/output
+    hadoop fs –cat /flights/output/part-r-00000
+    hadoop fs –cat /flights/output/part-r-00001
+````

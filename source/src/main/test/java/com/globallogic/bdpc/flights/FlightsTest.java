@@ -1,7 +1,6 @@
 package com.globallogic.bdpc.flights;
 
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
@@ -34,39 +33,22 @@ public class FlightsTest {
 
     @Test
     public void testFlightAverageReducer() throws IOException {
-        new ReduceDriver<Text, IntWritable, Text, DoubleWritable>()
+        new ReduceDriver<Text, DoubleWritable, Text, DoubleWritable>()
                 .withReducer(new FlightAverageReducer())
                 .withAll(asList(
-                        new Pair<>(new Text("AS"), asList(new IntWritable(-11), new IntWritable(-13))),
-                        new Pair<>(new Text("AA"), asList(new IntWritable(-8), new IntWritable(-10))),
-                        new Pair<>(new Text("US"), asList(new IntWritable(-2), new IntWritable(-4), new IntWritable(-8)))
+                        new Pair<>(new Text("AS"), asList(new DoubleWritable(-11), new DoubleWritable(-13))),
+                        new Pair<>(new Text("US"), asList(new DoubleWritable(-2), new DoubleWritable(-4), new DoubleWritable(-9))),
+                        new Pair<>(new Text("AA"), asList(new DoubleWritable(-8), new DoubleWritable(-10))),
+                        new Pair<>(new Text("ZZ"), asList(new DoubleWritable(-6), new DoubleWritable(-3), new DoubleWritable(-3))),
+                        new Pair<>(new Text("XX"), asList(new DoubleWritable(-2), new DoubleWritable(-2))),
+                        new Pair<>(new Text("AA"), asList(new DoubleWritable(-1), new DoubleWritable(-1)))
                 ))
                 .withAllOutput(asList(
-                        new Pair<>(new Text("AS"), new DoubleWritable(-12)),
-                        new Pair<>(new Text("AA"), new DoubleWritable(-9)),
-                        new Pair<>(new Text("US"), new DoubleWritable(-4))
-                ))
-                .runTest();
-    }
-
-    @Test
-    public void testTopDelaysMapper() throws IOException {
-        new MapDriver<Text, DoubleWritable, Text, DoubleWritable>()
-                .withMapper(new TopDelaysMapper())
-                .withAll(asList(
-                        new Pair<>(new Text("AA"), new DoubleWritable(-9)),
-                        new Pair<>(new Text("US"), new DoubleWritable(-4)),
-                        new Pair<>(new Text("AS"), new DoubleWritable(-12)),
-                        new Pair<>(new Text("ZZ"), new DoubleWritable(-16)),
-                        new Pair<>(new Text("CC"), new DoubleWritable(-10)),
-                        new Pair<>(new Text("DD"), new DoubleWritable(-30))
-                ))
-                .withAllOutput(asList(
-                        new Pair<>(new Text("Airline DD [DD]"), new DoubleWritable(-30)),
-                        new Pair<>(new Text("Airline ZZ [ZZ]"), new DoubleWritable(-16)),
                         new Pair<>(new Text("Airline Alaska Airlines Inc. [AS]"), new DoubleWritable(-12)),
-                        new Pair<>(new Text("Airline CC [CC]"), new DoubleWritable(-10)),
-                        new Pair<>(new Text("Airline American Airlines Inc. [AA]"), new DoubleWritable(-9))
+                        new Pair<>(new Text("Airline American Airlines Inc. [AA]"), new DoubleWritable(-9)),
+                        new Pair<>(new Text("Airline US Airways Inc. [US]"), new DoubleWritable(-5)),
+                        new Pair<>(new Text("Airline ZZ [ZZ]"), new DoubleWritable(-4)),
+                        new Pair<>(new Text("Airline XX [XX]"), new DoubleWritable(-2))
                 ))
                 .runTest();
     }
