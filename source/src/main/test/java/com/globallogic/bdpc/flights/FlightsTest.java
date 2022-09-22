@@ -17,7 +17,7 @@ public class FlightsTest {
 
     @Test
     public void testFlightDelayMapper() throws IOException {
-        new MapDriver<LongWritable, Text, Text, IntWritable>()
+        new MapDriver<LongWritable, Text, Text, DoubleWritable>()
                 .withMapper(new FlightDelayMapper())
                 .withAll(asList(
                         new Pair<>(new LongWritable(1L), new Text("2015,1,1,4,AS,98,N407AS,ANC,SEA,0005,2354,-11,21")),
@@ -25,9 +25,9 @@ public class FlightsTest {
                         new Pair<>(new LongWritable(3L), new Text("2015,1,1,4,US,840,N171US,SFO,CLT,0020,0018,-2,16"))
                 ))
                 .withAllOutput(asList(
-                        new Pair<>(new Text("AS"), new IntWritable(-11)),
-                        new Pair<>(new Text("AA"), new IntWritable(-8)),
-                        new Pair<>(new Text("US"), new IntWritable(-2))
+                        new Pair<>(new Text("AS"), new DoubleWritable(-11)),
+                        new Pair<>(new Text("AA"), new DoubleWritable(-8)),
+                        new Pair<>(new Text("US"), new DoubleWritable(-2))
                 ))
                 .runTest();
     }
