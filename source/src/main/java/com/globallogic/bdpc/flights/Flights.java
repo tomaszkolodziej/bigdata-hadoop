@@ -28,7 +28,7 @@ public class Flights extends Configured implements Tool {
 
         job.setMapperClass(FlightDelayMapper.class);
         job.setReducerClass(FlightAverageReducer.class);
-        job.setMapperClass(TopDelaysMapper.class);
+//        job.setMapperClass(TopDelaysMapper.class);
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(DoubleWritable.class);
